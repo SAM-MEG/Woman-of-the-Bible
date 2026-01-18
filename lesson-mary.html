@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mary of Bethany | Lesson</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --cream: #faf7f3;
+      --soft-rose: #e8cfc4;
+      --deep-charcoal: #2b2b2b;
+      --muted-gold: #c6a664;
+      --dusty-mauve: #b79aa4;
+      --accent-pink: #c94f6d;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: var(--cream);
+      color: var(--deep-charcoal);
+      line-height: 1.7;
+    }
+
+    header {
+      padding: 3rem 2rem 2rem;
+      text-align: center;
+      background: linear-gradient(to bottom, #fdf5f0, #f7f0ee);
+      border-bottom: 2px solid var(--soft-rose);
+    }
+
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem;
+      margin-bottom: 0.5rem;
+      color: var(--accent-pink);
+    }
+
+    header p {
+      max-width: 600px;
+      margin: 0 auto;
+      font-size: 1rem;
+      color: #555;
+      font-style: italic;
+    }
+
+    header .pdf-download {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      background-color: var(--accent-pink);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    header .pdf-download:hover {
+      background-color: #a43b54;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    section {
+      margin-bottom: 3.5rem;
+    }
+
+    section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      position: relative;
+    }
+
+    section h2::after {
+      content: '';
+      width: 50px;
+      height: 2px;
+      background-color: var(--muted-gold);
+      display: block;
+      margin-top: 0.5rem;
+    }
+
+    section h3 {
+      font-family: 'Playfair Display', serif;
+      color: var(--accent-pink);
+      margin-top: 1.5rem;
+      font-size: 1.4rem;
+    }
+
+    .story {
+      font-size: 1.05rem;
+    }
+
+    .scripture {
+      background: #fff;
+      border-left: 4px solid var(--soft-rose);
+      padding: 1.5rem;
+      margin: 2rem 0;
+      font-style: italic;
+    }
+
+    .reflection {
+      background-color: #fff;
+      padding: 2rem;
+      border-radius: 12px;
+      margin: 1.5rem 0 2.5rem;
+    }
+
+    .reflection ul {
+      padding-left: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .reflection .label {
+      font-weight: 500;
+      margin-top: 1rem;
+      display: block;
+      font-size: 0.95rem;
+    }
+
+    .reflection textarea {
+      width: 100%;
+      min-height: 80px;
+      padding: 0.75rem;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+      font-family: 'Inter', sans-serif;
+      resize: vertical;
+      font-size: 0.95rem;
+    }
+
+    .notes textarea,
+    .prayer textarea {
+      width: 100%;
+      min-height: 140px;
+      padding: 1rem;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+      font-family: 'Inter', sans-serif;
+      resize: vertical;
+      margin-top: 1rem;
+    }
+
+    .label {
+      font-weight: 500;
+      margin-top: 2rem;
+      display: block;
+    }
+
+    .view-journal-btn {
+      display: inline-block;
+      margin: 1.5rem 0 0;
+      padding: 0.75rem 1.25rem;
+      background-color: var(--accent-pink);
+      color: #fff;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    .view-journal-btn:hover {
+      background-color: #a43b54;
+    }
+
+    .verse-link {
+      color: var(--accent-pink);
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    footer {
+      text-align: center;
+      padding: 3rem 2rem;
+      font-size: 0.9rem;
+      color: #777;
+    }
+
+    /* Modal for verse popup */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .modal {
+      background: #fffdf9;
+      border-radius: 14px;
+      max-width: 420px;
+      width: 90%;
+      padding: 1.8rem;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+      text-align: left;
+    }
+
+    .modal h4 {
+      margin-top: 0;
+      font-family: 'Playfair Display', serif;
+      color: var(--accent-pink);
+    }
+
+    .modal p {
+      margin: 0.5rem 0 0;
+      line-height: 1.6;
+      font-size: 0.98rem;
+    }
+
+    .modal-close {
+      margin-top: 1.4rem;
+      display: inline-block;
+      padding: 0.4rem 0.9rem;
+      border-radius: 6px;
+      border: none;
+      background: var(--accent-pink);
+      color: #fff;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    @media (max-width: 600px) {
+      header h1 { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Mary of Bethany</h1>
+    <p>Devotion Over Performance</p>
+    <!-- Update the href to the correct path of your Mary PDF -->
+    <a href="lessons/Mary of Bethany - 7Jan.pdf" class="pdf-download" target="_blank">Download Lesson PDF</a>
+  </header>
+
+  <main>
+    <!-- Opening -->
+    <section>
+      <h2>Opening – Why We Begin Here</h2>
+      <div class="story">
+        <p>
+          As we step into a new year, many of us feel pressure to:<br/>
+          • Improve ourselves<br/>
+          • Set goals<br/>
+          • Fix what feels broken<br/>
+          • Stay motivated
+        </p>
+        <p>
+          But Jesus never began with pressure. He always began with presence.<br/><br/>
+          Before He asked people to do anything, He invited them to be with Him.<br/><br/>
+          That is why we begin this year with Mary of Bethany – a woman who shows us that devotion matters more than performance.
+        </p>
+      </div>
+    </section>
+
+    <!-- Story -->
+    <section>
+      <h2>The Story</h2>
+      <div class="story">
+        <p>
+          Mary of Bethany lived in a small village near Jerusalem. She was the sister of Martha and Lazarus.<br/>
+          She is mentioned three times in Scripture, and every single time, Mary is found at the feet of Jesus.<br/>
+          This is not accidental. This is revelation.<br/><br/>
+          Mary shows us what non-performative devotion looks like, and through her story, we see the heart of Jesus toward women.
+        </p>
+
+        <div class="scripture">
+          “She chose what is better.” –
+          <span class="verse-link" data-verse="luke1042">Luke 10:42</span>
+        </div>
+
+        <h3>1. Mary Sits at Jesus’ Feet (Luke 10:38–42)</h3>
+        <p>
+          Jesus visits the home of Mary and Martha. Martha is busy serving. Mary chooses to sit at Jesus’ feet and listen.<br/>
+          Jesus gently responds that Mary has chosen what is better, and it will not be taken from her.
+        </p>
+        <p><strong>Revelation:</strong> Jesus is not rebuking service – He is correcting priority. Mary chooses presence over productivity.</p>
+        <p><strong>Key Truth:</strong> Jesus invites our attention; He does not compete with our activity.</p>
+        <div class="reflection">
+          <strong>Reflection</strong>
+          <ul>
+            <li>Where have I confused being busy for being close to Jesus?</li>
+            <li>What distractions keep me from sitting at His feet?</li>
+            <li>What would choosing “what is better” look like for me right now?</li>
+          </ul>
+          <label class="label">My Answer</label>
+          <textarea class="reflection-answer" data-ref="1" placeholder="Write your response to these questions..."></textarea>
+        </div>
+
+        <h3>2. Mary Weeps at Jesus’ Feet (John 11)</h3>
+        <p>
+          Lazarus dies. Mary stays behind until Jesus calls for her. When she comes, she falls at His feet and says, “Lord, if You had been here…”.<br/>
+          She does not hide her pain. Jesus does not rush her healing. He weeps with her.
+        </p>
+        <div class="scripture">
+          “Then when Mary was come where Jesus was, and saw him, she fell down at his feet, saying unto him, Lord, if thou hadst been here, my brother had not died.” –
+          <span class="verse-link" data-verse="john1132">John 11:32</span>
+        </div>
+        <p><strong>Revelation:</strong> Jesus welcomes women’s emotions and enters their pain.</p>
+        <p><strong>Key Truth:</strong> You do not need “strong faith” to be close to Jesus – you need an honest heart.</p>
+        <div class="reflection">
+          <strong>Reflection</strong>
+          <ul>
+            <li>Where am I holding pain instead of bringing it to Jesus?</li>
+            <li>Do I believe Jesus cares about my grief?</li>
+            <li>What would it look like to be fully honest with Him?</li>
+          </ul>
+          <label class="label">My Answer</label>
+          <textarea class="reflection-answer" data-ref="2" placeholder="Write your response to these questions..."></textarea>
+        </div>
+
+        <h3>3. Mary Anoints Jesus’ Feet (John 12)</h3>
+        <p>
+          Mary pours expensive perfume over Jesus’ feet and wipes them with her hair.<br/>
+          Others call it wasteful. Jesus calls it beautiful.<br/>
+          She understands He is preparing to die. Her devotion is intimate and discerning.
+        </p>
+        <div class="scripture">
+          “Then took Mary a pound of ointment of spikenard, very costly, and anointed the feet of Jesus…” –
+          <span class="verse-link" data-verse="john123">John 12:3</span>
+        </div>
+        <p><strong>Key Truth:</strong> Devotion often looks wasteful to people who don’t understand intimacy.</p>
+        <div class="reflection">
+          <strong>Reflection</strong>
+          <ul>
+            <li>What would wholehearted worship look like for me?</li>
+            <li>Am I more concerned with opinions or obedience?</li>
+            <li>What has time with Jesus revealed to me about His heart?</li>
+          </ul>
+          <label class="label">My Answer</label>
+          <textarea class="reflection-answer" data-ref="3" placeholder="Write your response to these questions..."></textarea>
+        </div>
+
+        <h3>4. What Mary Teaches Us About Jesus’ Heart Toward Women</h3>
+        <p>
+          Jesus invites women into discipleship, welcomes their grief, honors their worship, protects their spiritual choices, and never rushes or silences them.<br/>
+          Mary is simply with Him – not performing, not trying to be seen.
+        </p>
+
+        <h3>5. Why This Is the Right Start for the Year</h3>
+        <p>
+          This year does not begin with discipline, hustle, pressure, or perfection.<br/>
+          It begins with posture.<br/>
+          Mary reminds us: before goals → presence; before serving → sitting; before motivation → devotion.<br/>
+          What Mary chose, Jesus said, would not be taken from her.
+        </p>
+
+        <h3>Closing Prayer</h3>
+        <p>
+          Father, we come to You not with performance, not with striving, not with pressure, but with open hearts.<br/>
+          Teach us to sit at Your feet. To listen. To rest. To be honest. To worship without fear.<br/>
+          Like Mary, we choose what is better. We choose devotion over distraction, presence over pressure, and intimacy over image.<br/>
+          As we begin this year, anchor us in You, Lord. May nothing take away what we choose at Your feet. Amen.
+        </p>
+      </div>
+    </section>
+
+    <!-- Notes -->
+    <section class="notes">
+      <label class="label">My Notes</label>
+      <textarea placeholder="Write what stood out to you, what stirred your heart, or what you sensed God saying..."></textarea>
+    </section>
+
+    <!-- Prayer -->
+    <section class="prayer">
+      <label class="label">My Prayer</label>
+      <textarea placeholder="Write your prayer here — honest, raw, and unfiltered..."></textarea>
+    </section>
+
+    <a href="my journal.html" class="view-journal-btn">View My Journal</a>
+  </main>
+
+  <footer>
+    <p>Getting to Know Jesus • A sacred space for daughters</p>
+  </footer>
+
+  <!-- Verse Modal -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+      <h4 id="modalTitle"></h4>
+      <p id="modalText"></p>
+      <button class="modal-close" id="modalClose">Close</button>
+    </div>
+  </div>
+
+  <script>
+    // --- JOURNAL STORAGE LOGIC (notes + prayer + reflection answers) ---
+    const LESSON_KEY = "jesus_journal_entries";
+    let currentEntryId = null;
+
+    const notesField = document.querySelector('.notes textarea');
+    const prayerField = document.querySelector('.prayer textarea');
+    const reflectionFields = document.querySelectorAll('.reflection-answer');
+
+    function loadLastEntryForLesson() {
+      const entries = JSON.parse(localStorage.getItem(LESSON_KEY)) || [];
+      const lessonEntries = entries.filter(e => e.lesson === document.title);
+      if (lessonEntries.length > 0) {
+        const latest = lessonEntries[lessonEntries.length - 1];
+        currentEntryId = latest.id;
+        if (notesField) notesField.value = latest.notes || "";
+        if (prayerField) prayerField.value = latest.prayer || "";
+        if (latest.reflectionAnswers && reflectionFields.length) {
+          reflectionFields.forEach((field, idx) => {
+            field.value = latest.reflectionAnswers[idx] || "";
+          });
+        }
+      }
+    }
+
+    function collectReflectionAnswers() {
+      const answers = [];
+      reflectionFields.forEach((field, idx) => {
+        answers[idx] = field.value || "";
+      });
+      return answers;
+    }
+
+    function hasAnyContent(notes, prayer, reflectionAnswers) {
+      if ((notes && notes.trim()) || (prayer && prayer.trim())) return true;
+      if (!reflectionAnswers) return false;
+      return reflectionAnswers.some(ans => ans && ans.trim());
+    }
+
+    function saveEntry(lessonTitle, notes, prayer) {
+      const reflectionAnswers = collectReflectionAnswers();
+      if (!hasAnyContent(notes, prayer, reflectionAnswers)) return;
+
+      const entries = JSON.parse(localStorage.getItem(LESSON_KEY)) || [];
+
+      if (currentEntryId) {
+        // update existing entry
+        const existing = entries.find(e => e.id === currentEntryId);
+        if (existing) {
+          existing.notes = notes;
+          existing.prayer = prayer;
+          existing.reflectionAnswers = reflectionAnswers;
+          existing.timestamp = new Date().toISOString();
+        }
+      } else {
+        // create new entry
+        const entry = {
+          id: Date.now(),
+          lesson: lessonTitle,
+          date: new Date().toLocaleDateString(),
+          timestamp: new Date().toISOString(),
+          notes,
+          prayer,
+          reflectionAnswers
+        };
+        currentEntryId = entry.id;
+        entries.push(entry);
+      }
+
+      localStorage.setItem(LESSON_KEY, JSON.stringify(entries));
+    }
+
+    if (notesField && prayerField) {
+      loadLastEntryForLesson();
+
+      notesField.addEventListener('blur', () => {
+        saveEntry(document.title, notesField.value, prayerField.value);
+      });
+
+      prayerField.addEventListener('blur', () => {
+        saveEntry(document.title, notesField.value, prayerField.value);
+      });
+
+      reflectionFields.forEach(field => {
+        field.addEventListener('blur', () => {
+          saveEntry(document.title, notesField.value, prayerField.value);
+        });
+      });
+    }
+
+    // --- VERSE POPUP LOGIC ---
+    const verseTexts = {
+      luke1042: {
+        title: "Luke 10:42 (KJV)",
+        text: "But one thing is needful: and Mary hath chosen that good part, which shall not be taken away from her."
+      },
+      john1132: {
+        title: "John 11:32 (KJV)",
+        text: "Then when Mary was come where Jesus was, and saw him, she fell down at his feet, saying unto him, Lord, if thou hadst been here, my brother had not died."
+      },
+      john123: {
+        title: "John 12:3 (KJV)",
+        text: "Then took Mary a pound of ointment of spikenard, very costly, and anointed the feet of Jesus, and wiped his feet with her hair: and the house was filled with the odour of the ointment."
+      }
+    };
+
+    const modalOverlay = document.getElementById('modalOverlay');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalText = document.getElementById('modalText');
+    const modalClose = document.getElementById('modalClose');
+
+    document.querySelectorAll('.verse-link').forEach(link => {
+      link.addEventListener('click', () => {
+        const key = link.getAttribute('data-verse');
+        const verse = verseTexts[key];
+        if (verse) {
+          modalTitle.textContent = verse.title;
+          modalText.textContent = verse.text;
+          modalOverlay.style.display = 'flex';
+        }
+      });
+    });
+
+    modalClose.addEventListener('click', () => {
+      modalOverlay.style.display = 'none';
+    });
+
+    modalOverlay.addEventListener('click', (e) => {
+      if (e.target === modalOverlay) {
+        modalOverlay.style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html>
