@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lesson | Seen & Known</title>
+  <title>From the Well to the Witness | Lesson</title>
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
@@ -15,11 +15,10 @@
       --deep-charcoal: #2b2b2b;
       --muted-gold: #c6a664;
       --dusty-mauve: #b79aa4;
+      --accent-pink: #c94f6d;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -32,12 +31,15 @@
     header {
       padding: 3rem 2rem 2rem;
       text-align: center;
+      background: linear-gradient(to bottom, #fdf5f0, #f7f0ee);
+      border-bottom: 2px solid var(--soft-rose);
     }
 
     header h1 {
       font-family: 'Playfair Display', serif;
       font-size: 2.4rem;
       margin-bottom: 0.5rem;
+      color: var(--accent-pink);
     }
 
     header p {
@@ -45,6 +47,23 @@
       margin: 0 auto;
       font-size: 1rem;
       color: #555;
+      font-style: italic;
+    }
+
+    header .pdf-download {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      background-color: var(--accent-pink);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    header .pdf-download:hover {
+      background-color: #a43b54;
     }
 
     main {
@@ -54,7 +73,7 @@
     }
 
     section {
-      margin-bottom: 4rem;
+      margin-bottom: 3.5rem;
     }
 
     section h2 {
@@ -73,6 +92,13 @@
       margin-top: 0.5rem;
     }
 
+    section h3 {
+      font-family: 'Playfair Display', serif;
+      color: var(--accent-pink);
+      margin-top: 1.5rem;
+      font-size: 1.4rem;
+    }
+
     .story {
       font-size: 1.05rem;
     }
@@ -89,10 +115,30 @@
       background-color: #fff;
       padding: 2rem;
       border-radius: 12px;
+      margin: 1.5rem 0 2.5rem;
     }
 
     .reflection ul {
       padding-left: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .reflection .label {
+      font-weight: 500;
+      margin-top: 1rem;
+      display: block;
+      font-size: 0.95rem;
+    }
+
+    .reflection textarea {
+      width: 100%;
+      min-height: 80px;
+      padding: 0.75rem;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+      font-family: 'Inter', sans-serif;
+      resize: vertical;
+      font-size: 0.95rem;
     }
 
     .notes textarea,
@@ -113,6 +159,29 @@
       display: block;
     }
 
+    .view-journal-btn {
+      display: inline-block;
+      margin: 1.5rem 0 0;
+      padding: 0.75rem 1.25rem;
+      background-color: var(--accent-pink);
+      color: #fff;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    .view-journal-btn:hover {
+      background-color: #a43b54;
+    }
+
+    .verse-link {
+      color: var(--accent-pink);
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
     footer {
       text-align: center;
       padding: 3rem 2rem;
@@ -120,152 +189,459 @@
       color: #777;
     }
 
+    /* Modal for verse popup */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .modal {
+      background: #fffdf9;
+      border-radius: 14px;
+      max-width: 420px;
+      width: 90%;
+      padding: 1.8rem;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+      text-align: left;
+    }
+
+    .modal h4 {
+      margin-top: 0;
+      font-family: 'Playfair Display', serif;
+      color: var(--accent-pink);
+    }
+
+    .modal p {
+      margin: 0.5rem 0 0;
+      line-height: 1.6;
+      font-size: 0.98rem;
+    }
+
+    .modal-close {
+      margin-top: 1.4rem;
+      display: inline-block;
+      padding: 0.4rem 0.9rem;
+      border-radius: 6px;
+      border: none;
+      background: var(--accent-pink);
+      color: #fff;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
     @media (max-width: 600px) {
-      header h1 {
-        font-size: 2rem;
-      }
+      header h1 { font-size: 2rem; }
     }
   </style>
 </head>
 <body>
 
   <header>
-    <h1>The Samaritan Woman</h1>
-    <p>An encounter at the well, where Jesus speaks to the unseen, the weary, and the deeply known.</p>
+    <h1>From the Well to the Witness</h1>
+    <p>Jesus meets us in our broken places and turns our past into purpose.</p>
+    <!-- Update the href to the correct path of your Well PDF -->
+    <a href="lessons/21 Jan- The well.pdf" class="pdf-download" target="_blank">Download Lesson PDF</a>
   </header>
 
   <main>
-
-    <!-- STORY SECTION -->
+    <!-- Opening -->
     <section>
-      <h2>The Story</h2>
+      <h2>Opening – Jesus at the Well</h2>
       <div class="story">
         <p>
-          She comes to the well at noon not because she prefers the heat, but because she prefers solitude.
-          The whispers are quieter then. The stares fewer. The judgment less visible.
+          Today we sit with the Samaritan woman at the well – a woman who comes at the wrong time,
+          in the heat of the day, carrying shame, routine and survival. She is not looking for a miracle.
+          She is just trying to get through the day.
         </p>
         <p>
-          Jesus is already there. Tired. Thirsty. Waiting.
-          He speaks first, crossing cultural lines, religious rules, and personal shame with one simple request:
-          <em>“Will you give Me a drink?”</em>
+          But Jesus is already on His way toward her. He chooses the long road through Samaria,
+          a place others avoid, because she is worth the detour.
+        </p>
+        <div class="scripture">
+          <strong>Bible Verse:</strong><br/>
+          “Now Jesus learned that the Pharisees had heard that he was gaining and baptizing more disciples than John—
+          although in fact it was not Jesus who baptized, but his disciples. So he left Judea and went back once more to Galilee.
+          <br/><br/>
+          Now he had to go through Samaria.”
+          – <span class="verse-link" data-verse="john4_main">John 4:1–4 (NIV)</span>
+        </div>
+        <p>
+          This lesson reminds us:
+        </p>
+        <ul>
+          <li>Nothing in our past disqualifies us.</li>
+          <li>Jesus runs toward the broken, not away.</li>
+          <li>Encounters at ordinary places can lead to extraordinary callings.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Story / Points -->
+    <section>
+      <h2>The Story – From Hiding to Witness</h2>
+      <div class="story">
+
+        <h3>1. The Setting – A Woman at the Wrong Place & Time</h3>
+        <div class="scripture">
+          “When a Samaritan woman came to draw water, Jesus said to her, ‘Will you give me a drink?’”
+          – <span class="verse-link" data-verse="john47">John 4:7 (NIV)</span>
+        </div>
+        <p>
+          Most women drew water in the early morning or evening – cool hours, communal moments.
+          Coming at noon signals avoidance, shame and isolation. She chooses a time when no one else will be there.
+        </p>
+        <p>
+          Jesus intentionally travels through Samaria – a region Jews avoided because of deep religious and ethnic tension.
+          He goes out of His way to meet her where she is hiding.
+        </p>
+        <p><strong>Important:</strong> Jesus goes out of His way to meet us in the places we hide.</p>
+        <div class="reflection">
+          <strong>Reflection</strong>
+          <ul>
+            <li>What places in your life feel like “noon wells,” where you go to avoid others?</li>
+            <li>How has Jesus met you in private places rather than public ones?</li>
+          </ul>
+          <label class="label">My Answer</label>
+          <textarea class="reflection-answer" data-ref="1" placeholder="Write your response to these questions..."></textarea>
+        </div>
+
+        <h3>2. The Barriers – Why This Conversation Shouldn’t Happen</h3>
+        <p>
+          Three barriers should have prevented this encounter:
+        </p>
+        <ul>
+          <li><strong>Race/Ethnicity:</strong> Jews vs Samaritans.</li>
+          <li><strong>Gender:</strong> Men didn’t publicly speak to women like this.</li>
+          <li><strong>Reputation:</strong> Her past shaped how others treated her.</li>
+        </ul>
+        <p>
+          Yet Jesus begins gently:
+        </p>
+        <div class="scripture">
+          “Will you give me a drink?”
+          – <span class="verse-link" data-verse="john47b">John 4:7 (NIV)</span>
+        </div>
+        <p>
+          He leads with connection, not condemnation. He crosses every human boundary to sit with her in conversation.
+        </p>
+        <p><strong>Important:</strong> Jesus breaks barriers people use to keep others out.</p>
+        <div class="reflection">
+          <strong>Reflection</strong>
+          <ul>
+            <li>What barriers has Jesus crossed to reach you?</li>
+            <li>What barriers do you still put around yourself or others?</li>
+          </ul>
+          <label class="label">My Answer</label>
+          <textarea class="reflection-answer" data-ref="2" placeholder="Write your response to these questions..."></textarea>
+        </div>
+
+        <h3>3. The Deeper Thirst – More Than Water</h3>
+        <div class="scripture">
+          “But whoever drinks the water I give them will never thirst. Indeed, the water I give them will
+          become in them a spring of water welling up to eternal life.”
+          – <span class="verse-link" data-verse="john414">John 4:14 (NIV)</span>
+        </div>
+        <p>
+          She keeps returning to:
+        </p>
+        <ul>
+          <li>the well (routine)</li>
+          <li>relationships (comfort)</li>
+          <li>temporary solutions (survival)</li>
+        </ul>
+        <p>
+          Jesus shifts the conversation from physical water to living water – from outward need to inward thirst.
+        </p>
+        <p><strong>Important:</strong> We often try to satisfy spiritual thirst with temporary fixes.</p>
+        <div class="reflection">
+          <strong>Reflection</strong>
+          <ul>
+            <li>What “wells” do you keep returning to for satisfaction?</li>
+            <li>What are the things that temporarily relieve but never heal?</li>
+          </ul>
+          <label class="label">My Answer</label>
+          <textarea class="reflection-answer" data-ref="3" placeholder="Write your response to these questions..."></textarea>
+        </div>
+
+        <h3>4. The Exposure – Truth Without Shame</h3>
+        <div class="scripture">
+          “You are right when you say you have no husband. The fact is, you have had five husbands, and the man you now have is not your husband.”
+          – <span class="verse-link" data-verse="john418">John 4:17–18 (NIV)</span>
+        </div>
+        <p>
+          Jesus speaks to her reality with gentleness. He knows her past, her pain and her patterns – and yet He does not step back.
+        </p>
+        <p>
+          <strong>Historical note:</strong> Multiple marriages didn’t always mean promiscuity. Women could not initiate divorce;
+          they could be widowed, rejected or abandoned. Her story likely carries layers of grief and loss.
+        </p>
+        <p><strong>Important:</strong> Jesus already knows your story, and He still offers grace.</p>
+        <div class="reflection">
+          <strong>Reflection</strong>
+          <ul>
+            <li>How does Jesus speak truth to you?</li>
+            <li>Where do you still fear exposure or rejection?</li>
+          </ul>
+          <label class="label">My Answer</label>
+          <textarea class="reflection-answer" data-ref="4" placeholder="Write your response to these questions..."></textarea>
+        </div>
+
+        <h3>5. The Revelation – Meeting the Messiah</h3>
+        <div class="scripture">
+          “Then Jesus declared, ‘I, the one speaking to you—I am he.’”
+          – <span class="verse-link" data-verse="john426">John 4:26 (NIV)</span>
+        </div>
+        <p>
+          This is one of the first clear declarations of Jesus as Messiah – and He gives it not to a religious leader or
+          respected teacher, but to a Samaritan woman with a complicated past.
+        </p>
+        <p><strong>Important:</strong> Jesus reveals Himself to the open, not the perfect.</p>
+        <div class="reflection">
+          <strong>Reflection</strong>
+          <ul>
+            <li>Why do you think Jesus chose her for this revelation?</li>
+            <li>What does it say about who He values?</li>
+          </ul>
+          <label class="label">My Answer</label>
+          <textarea class="reflection-answer" data-ref="5" placeholder="Write your response to these questions..."></textarea>
+        </div>
+
+        <h3>6. The Transformation – From Ashamed to Bold</h3>
+        <div class="scripture">
+          “Then, leaving her water jar, the woman went back to the town and said to the people…”
+          – <span class="verse-link" data-verse="john428">John 4:28 (NIV)</span>
+        </div>
+        <p>
+          Her response is instant. She leaves her water jar – the symbol of old habits, old identity and old survival – and runs back to the town she once avoided.
+        </p>
+        <p><strong>Important:</strong> An encounter with Jesus turns shame into testimony.</p>
+        <div class="reflection">
+          <strong>Reflection</strong>
+          <ul>
+            <li>What would it look like for you to “leave your water jar behind”?</li>
+            <li>What changed in her after meeting Jesus?</li>
+          </ul>
+          <label class="label">My Answer</label>
+          <textarea class="reflection-answer" data-ref="6" placeholder="Write your response to these questions..."></textarea>
+        </div>
+
+        <h3>7. The Impact – Her Testimony Changed a City</h3>
+        <div class="scripture">
+          “Many of the Samaritans from that town believed in him because of the woman’s testimony…”
+          – <span class="verse-link" data-verse="john439">John 4:39 (NIV)</span>
+        </div>
+        <p>
+          Her past didn’t disqualify her – it qualified her. Her story, healed by Jesus, becomes the doorway for many others to believe.
+        </p>
+        <p><strong>Important:</strong> Your story, healed by Jesus, can bring others to Him.</p>
+        <div class="reflection">
+          <strong>Reflection</strong>
+          <ul>
+            <li>Whose faith could be unlocked by your testimony?</li>
+            <li>What story of yours might God be trying to use?</li>
+          </ul>
+          <label class="label">My Answer</label>
+          <textarea class="reflection-answer" data-ref="7" placeholder="Write your response to these questions..."></textarea>
+        </div>
+
+        <h3>Closing Takeaway</h3>
+        <p>
+          Jesus doesn’t wait for perfection to call us. He meets us at the well, exposes our truth without shame,
+          heals our identity, and turns our pain into purpose.
+        </p>
+        <p>
+          She came thirsty.<br/>
+          She left full.<br/>
+          She returned a witness.
         </p>
       </div>
-
-      <div class="scripture">
-        “When a Samaritan woman came to draw water, Jesus said to her, ‘Will you give me a drink?’”
-        <br/>— John 4:7
-      </div>
     </section>
 
-    <!-- JESUS HEART -->
-    <section>
-      <h2>Jesus’ Heart</h2>
-      <p>
-        Jesus does not expose her to shame her. He reveals her to restore her.
-        He names her truth gently, without accusation, without disgust.
-        He stays. He listens. He invites.
-      </p>
-
-      <div class="scripture">
-        “The hour is coming, and is now here, when the true worshipers will worship the Father in spirit and truth.”
-        <br/>— John 4:23
-      </div>
-    </section>
-
-    <!-- HER HEART -->
-    <section>
-      <h2>Her Heart</h2>
-      <p>
-        She begins guarded. Defensive. Curious.
-        But as He speaks, something softens.
-        She realizes: <strong>He knows me and He is still talking to me.</strong>
-      </p>
-    </section>
-
-    <!-- REFLECTION -->
-    <section class="reflection">
-      <h2>Reflection</h2>
-      <ul>
-        <li>Where do I avoid being seen and why?</li>
-        <li>What truth has Jesus been gently naming in my life?</li>
-        <li>What would it look like to stay at the well with Him?</li>
-      </ul>
-    </section>
-
-    <!-- NOTES -->
+    <!-- Notes -->
     <section class="notes">
       <label class="label">My Notes</label>
-      <textarea placeholder="Write what stood out to you, what stirred your heart, or what you sensed God saying..."></textarea>
+      <textarea placeholder="Write what stood out to you, what stirred your heart, or what you sensed God saying at the well today..."></textarea>
     </section>
 
-    <!-- PRAYER -->
+    <!-- Prayer -->
     <section class="prayer">
       <label class="label">My Prayer</label>
-      <textarea placeholder="Write your prayer here — honest, raw, and unfiltered..."></textarea>
+      <textarea placeholder="Write your prayer here — honest, raw, and unfiltered. Talk to Jesus about your own well, your own Samaria, and your own testimony..."></textarea>
     </section>
-<a href="my journal.html" class="view-journal-btn">View My Journal</a>
 
-<style>
-.view-journal-btn {
-  display: inline-block;
-  margin: 1rem 0;
-  padding: 0.75rem 1.25rem;
-  background-color: #c94f6d;
-  color: #fff;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: bold;
-  transition: background 0.3s;
-}
-.view-journal-btn:hover {
-  background-color: #a43b54;
-}
-</style>
-
+    <a href="my journal.html" class="view-journal-btn">View My Journal</a>
   </main>
 
   <footer>
     <p>Getting to Know Jesus • A sacred space for daughters</p>
   </footer>
 
+  <!-- Verse Modal -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+      <h4 id="modalTitle"></h4>
+      <p id="modalText"></p>
+      <button class="modal-close" id="modalClose">Close</button>
+    </div>
+  </div>
 
+  <script>
+    // --- JOURNAL STORAGE LOGIC (notes + prayer + reflection answers) ---
+    const LESSON_KEY = "jesus_journal_entries";
+    let currentEntryId = null;
 
-<script>
-// --- JOURNAL STORAGE LOGIC ---
-const LESSON_KEY = "jesus_journal_entries";
+    const notesField = document.querySelector('.notes textarea');
+    const prayerField = document.querySelector('.prayer textarea');
+    const reflectionFields = document.querySelectorAll('.reflection-answer');
 
-function saveEntry(lessonTitle, notes, prayer) {
-  if (!notes && !prayer) return;
+    function loadLastEntryForLesson() {
+      const entries = JSON.parse(localStorage.getItem(LESSON_KEY)) || [];
+      const lessonEntries = entries.filter(e => e.lesson === document.title);
+      if (lessonEntries.length > 0) {
+        const latest = lessonEntries[lessonEntries.length - 1];
+        currentEntryId = latest.id;
+        if (notesField) notesField.value = latest.notes || "";
+        if (prayerField) prayerField.value = latest.prayer || "";
+        if (latest.reflectionAnswers && reflectionFields.length) {
+          reflectionFields.forEach((field, idx) => {
+            field.value = latest.reflectionAnswers[idx] || "";
+          });
+        }
+      }
+    }
 
-  const entries = JSON.parse(localStorage.getItem(LESSON_KEY)) || [];
+    function collectReflectionAnswers() {
+      const answers = [];
+      reflectionFields.forEach((field, idx) => {
+        answers[idx] = field.value || "";
+      });
+      return answers;
+    }
 
-  const entry = {
-    id: Date.now(),
-    lesson: lessonTitle,
-    date: new Date().toLocaleDateString(),
-    timestamp: new Date().toISOString(),
-    notes,
-    prayer
-  };
+    function hasAnyContent(notes, prayer, reflectionAnswers) {
+      if ((notes && notes.trim()) || (prayer && prayer.trim())) return true;
+      if (!reflectionAnswers) return false;
+      return reflectionAnswers.some(ans => ans && ans.trim());
+    }
 
-  entries.push(entry);
-  localStorage.setItem(LESSON_KEY, JSON.stringify(entries));
-}
+    function saveEntry(lessonTitle, notes, prayer) {
+      const reflectionAnswers = collectReflectionAnswers();
+      if (!hasAnyContent(notes, prayer, reflectionAnswers)) return;
 
-// Auto-save on blur
-const notesField = document.querySelector('.notes textarea');
-const prayerField = document.querySelector('.prayer textarea');
+      const entries = JSON.parse(localStorage.getItem(LESSON_KEY)) || [];
 
-if (notesField && prayerField) {
-  notesField.addEventListener('blur', () => {
-    saveEntry(document.title, notesField.value, prayerField.value);
-  });
+      if (currentEntryId) {
+        // update existing entry
+        const existing = entries.find(e => e.id === currentEntryId);
+        if (existing) {
+          existing.notes = notes;
+          existing.prayer = prayer;
+          existing.reflectionAnswers = reflectionAnswers;
+          existing.timestamp = new Date().toISOString();
+        }
+      } else {
+        // create new entry
+        const entry = {
+          id: Date.now(),
+          lesson: lessonTitle,
+          date: new Date().toLocaleDateString(),
+          timestamp: new Date().toISOString(),
+          notes,
+          prayer,
+          reflectionAnswers
+        };
+        currentEntryId = entry.id;
+        entries.push(entry);
+      }
 
-  prayerField.addEventListener('blur', () => {
-    saveEntry(document.title, notesField.value, prayerField.value);
-  });
-}
-</script>
+      localStorage.setItem(LESSON_KEY, JSON.stringify(entries));
+    }
 
+    if (notesField && prayerField) {
+      loadLastEntryForLesson();
+
+      notesField.addEventListener('blur', () => {
+        saveEntry(document.title, notesField.value, prayerField.value);
+      });
+
+      prayerField.addEventListener('blur', () => {
+        saveEntry(document.title, notesField.value, prayerField.value);
+      });
+
+      reflectionFields.forEach(field => {
+        field.addEventListener('blur', () => {
+          saveEntry(document.title, notesField.value, prayerField.value);
+        });
+      });
+    }
+
+    // --- VERSE POPUP LOGIC ---
+    const verseTexts = {
+      john4_main: {
+        title: "John 4:1–4 (NIV)",
+        text: "Now Jesus learned that the Pharisees had heard that he was gaining and baptizing more disciples than John— although in fact it was not Jesus who baptized, but his disciples. So he left Judea and went back once more to Galilee. Now he had to go through Samaria."
+      },
+      john47: {
+        title: "John 4:7 (NIV)",
+        text: "When a Samaritan woman came to draw water, Jesus said to her, “Will you give me a drink?”"
+      },
+      john47b: {
+        title: "John 4:7 (NIV)",
+        text: "When a Samaritan woman came to draw water, Jesus said to her, “Will you give me a drink?”"
+      },
+      john414: {
+        title: "John 4:14 (NIV)",
+        text: "But whoever drinks the water I give them will never thirst. Indeed, the water I give them will become in them a spring of water welling up to eternal life."
+      },
+      john418: {
+        title: "John 4:17–18 (NIV)",
+        text: "“I have no husband,” she replied. Jesus said to her, “You are right when you say you have no husband. The fact is, you have had five husbands, and the man you now have is not your husband. What you have just said is quite true.”"
+      },
+      john426: {
+        title: "John 4:26 (NIV)",
+        text: "Then Jesus declared, “I, the one speaking to you—I am he.”"
+      },
+      john428: {
+        title: "John 4:28 (NIV)",
+        text: "Then, leaving her water jar, the woman went back to the town and said to the people…"
+      },
+      john439: {
+        title: "John 4:39 (NIV)",
+        text: "Many of the Samaritans from that town believed in him because of the woman’s testimony, “He told me everything I ever did.”"
+      }
+    };
+
+    const modalOverlay = document.getElementById('modalOverlay');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalText = document.getElementById('modalText');
+    const modalClose = document.getElementById('modalClose');
+
+    document.querySelectorAll('.verse-link').forEach(link => {
+      link.addEventListener('click', () => {
+        const key = link.getAttribute('data-verse');
+        const verse = verseTexts[key];
+        if (verse) {
+          modalTitle.textContent = verse.title;
+          modalText.textContent = verse.text;
+          modalOverlay.style.display = 'flex';
+        }
+      });
+    });
+
+    modalClose.addEventListener('click', () => {
+      modalOverlay.style.display = 'none';
+    });
+
+    modalOverlay.addEventListener('click', (e) => {
+      if (e.target === modalOverlay) {
+        modalOverlay.style.display = 'none';
+      }
+    });
+  </script>
 </body>
 </html>
