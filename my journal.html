@@ -1,242 +1,815 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My Journal with Jesus</title>
-<style>
-  body {
-    font-family: 'Georgia', serif;
-    background: #fdf6f0;
-    color: #333;
-    margin: 0;
-    padding: 0;
-  }
-  header {
-    background: #f7d9e3;
-    padding: 2rem;
-    text-align: center;
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: #5a3e36;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  }
-  .journal-container {
-    max-width: 800px;
-    margin: 2rem auto;
-    padding: 1rem;
-  }
-  .entry {
-    background: #fffdf9;
-    border-radius: 12px;
-    padding: 1.8rem;
-    margin-bottom: 1.8rem;
-    box-shadow: 0 6px 12px rgba(0,0,0,0.05);
-    border-left: 6px solid #c94f6d;
-    transition: transform 0.2s;
-  }
-  .entry:hover {
-    transform: translateY(-2px);
-  }
-  .entry h3 {
-    margin: 0 0 0.5rem;
-    color: #c94f6d;
-    font-size: 1.4rem;
-  }
-  .entry .date {
-    font-size: 0.85rem;
-    color: #999;
-    margin-bottom: 1rem;
-    font-style: italic;
-  }
-  .entry p {
-    line-height: 1.6;
-    margin: 0.4rem 0;
-  }
-  .entry button {
-    margin-top: 0.7rem;
-    margin-right: 0.5rem;
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 6px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background 0.3s;
-  }
-  .edit-btn { background-color: #f7b7c9; color: #fff; }
-  .edit-btn:hover { background-color: #e18aa6; }
-  .save-btn { background-color: #5a3e36; color: #fff; display: none; }
-  .save-btn:hover { background-color: #3d2a26; }
-  .cancel-btn { background-color: #999; color: #fff; display: none; }
-  .cancel-btn:hover { background-color: #777; }
-  .delete-btn { background-color: #c94f6d; color: #fff; }
-  .delete-btn:hover { background-color: #a43b54; }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Journal | Getting to Know Jesus</title>
 
-  .download-btn {
-    display: block;
-    max-width: 220px;
-    margin: 2rem auto;
-    padding: 0.75rem 1rem;
-    background: #c94f6d;
-    color: #fff;
-    text-align: center;
-    text-decoration: none;
-    border-radius: 8px;
-    font-weight: bold;
-    transition: background 0.3s;
-  }
-  .download-btn:hover {
-    background: #a43b54;
-  }
-  .reflection-block {
-    margin-top: 0.5rem;
-    padding-left: 0.5rem;
-    border-left: 2px solid #f0d0dc;
-    font-size: 0.95rem;
-  }
-</style>
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --cream: #faf7f3;
+      --soft-rose: #e8cfc4;
+      --deep-charcoal: #2b2b2b;
+      --muted-gold: #c6a664;
+      --dusty-mauve: #b79aa4;
+      --accent-pink: #c94f6d;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--cream);
+      color: var(--deep-charcoal);
+      line-height: 1.7;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* Header / Nav */
+    header {
+      padding: 2rem 1.5rem 2.5rem;
+      background: linear-gradient(to bottom right, #fdf5f0, #f7f0ee);
+      border-bottom: 2px solid var(--soft-rose);
+    }
+
+    .nav {
+      max-width: 1100px;
+      margin: 0 auto 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+    }
+
+    .brand-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      letter-spacing: 0.04em;
+    }
+
+    .brand-subtitle {
+      font-size: 0.85rem;
+      color: #777;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1rem;
+      font-size: 0.9rem;
+    }
+
+    .nav-links a {
+      padding: 0.35rem 0.7rem;
+      border-radius: 999px;
+      transition: background 0.25s;
+      color: #555;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      background: rgba(201, 79, 109, 0.08);
+    }
+
+    .journal-hero {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding-top: 0.5rem;
+    }
+
+    .journal-hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .journal-hero-title span {
+      color: var(--accent-pink);
+    }
+
+    .journal-hero-text {
+      font-size: 0.98rem;
+      color: #555;
+      max-width: 580px;
+      margin-bottom: 1rem;
+    }
+
+    .journal-hero-meta {
+      font-size: 0.85rem;
+      color: #777;
+    }
+
+    .journal-hero-meta span {
+      margin-right: 0.7rem;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 3rem;
+    }
+
+    section {
+      margin-bottom: 3rem;
+    }
+
+    section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.7rem;
+      margin-bottom: 0.2rem;
+      position: relative;
+    }
+
+    section h2::after {
+      content: '';
+      width: 45px;
+      height: 2px;
+      background-color: var(--muted-gold);
+      display: block;
+      margin-top: 0.4rem;
+    }
+
+    section > p.section-intro {
+      font-size: 0.95rem;
+      color: #666;
+      margin-bottom: 1.3rem;
+    }
+
+    /* Lesson Entries List */
+
+    .entries-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .entry-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 1.1rem 1.2rem 1.25rem;
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.05);
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+
+    .entry-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 0.6rem;
+    }
+
+    .entry-lesson {
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    .entry-date {
+      font-size: 0.8rem;
+      color: #888;
+      white-space: nowrap;
+    }
+
+    .entry-snippet {
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    .entry-snippet em {
+      color: #999;
+      font-style: italic;
+    }
+
+    .entry-actions {
+      margin-top: 0.2rem;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .entry-toggle-btn {
+      border: none;
+      background: transparent;
+      font-size: 0.85rem;
+      color: var(--accent-pink);
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .entry-details {
+      margin-top: 0.5rem;
+      display: none;
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    .entry-details p {
+      margin-bottom: 0.4rem;
+    }
+
+    .entry-details-label {
+      font-weight: 600;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #999;
+    }
+
+    /* Empty state */
+
+    .empty-state {
+      font-size: 0.9rem;
+      color: #888;
+      padding: 1rem 1.2rem;
+      border-radius: 12px;
+      border: 1px dashed rgba(0, 0, 0, 0.08);
+      background: rgba(255, 255, 255, 0.7);
+    }
+
+    /* Personal Devotions Form */
+
+    .devotion-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.1fr);
+      gap: 2rem;
+      align-items: flex-start;
+    }
+
+    .devotion-card {
+      background: #fff;
+      border-radius: 18px;
+      padding: 1.4rem 1.5rem 1.6rem;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.05);
+    }
+
+    .devotion-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .devotion-card p.small {
+      font-size: 0.9rem;
+      color: #777;
+      margin-bottom: 1.1rem;
+    }
+
+    .form-group {
+      margin-bottom: 0.9rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.86rem;
+      font-weight: 500;
+      margin-bottom: 0.2rem;
+    }
+
+    .form-group span.hint {
+      font-size: 0.78rem;
+      color: #999;
+    }
+
+    input[type="text"],
+    textarea {
+      width: 100%;
+      padding: 0.7rem 0.8rem;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      resize: vertical;
+      background: #fffdfc;
+    }
+
+    textarea {
+      min-height: 90px;
+    }
+
+    .devotion-actions {
+      margin-top: 0.7rem;
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.6rem;
+      align-items: center;
+    }
+
+    .save-devotion-btn {
+      padding: 0.55rem 1.15rem;
+      border-radius: 999px;
+      border: none;
+      background: var(--accent-pink);
+      color: #fff;
+      font-size: 0.86rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.25s, transform 0.2s;
+    }
+
+    .save-devotion-btn:hover {
+      background: #a43b54;
+      transform: translateY(-1px);
+    }
+
+    .save-status {
+      font-size: 0.8rem;
+      color: #888;
+    }
+
+    /* Personal Devotions List */
+
+    .devotions-list-card {
+      background: #fff;
+      border-radius: 18px;
+      padding: 1.3rem 1.5rem 1.5rem;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.04);
+    }
+
+    .devotions-list-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .devotions-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+      margin-top: 0.4rem;
+    }
+
+    .devotion-item {
+      border-radius: 12px;
+      padding: 0.7rem 0.8rem;
+      background: rgba(250, 247, 243, 0.9);
+      border: 1px solid rgba(0, 0, 0, 0.03);
+    }
+
+    .devotion-item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 0.5rem;
+    }
+
+    .devotion-title {
+      font-size: 0.96rem;
+      font-weight: 600;
+    }
+
+    .devotion-date {
+      font-size: 0.8rem;
+      color: #999;
+      white-space: nowrap;
+    }
+
+    .devotion-scripture {
+      font-size: 0.82rem;
+      color: var(--dusty-mauve);
+      margin-top: 0.1rem;
+    }
+
+    .devotion-preview {
+      font-size: 0.88rem;
+      color: #666;
+      margin-top: 0.2rem;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2rem 1.5rem 2.2rem;
+      font-size: 0.85rem;
+      color: #888;
+    }
+
+    footer span {
+      color: var(--accent-pink);
+      font-weight: 500;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .devotion-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 800px) {
+      .nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.6rem;
+      }
+
+      .nav-links {
+        margin-left: -0.35rem;
+      }
+    }
+
+    @media (max-width: 500px) {
+      .journal-hero-title {
+        font-size: 1.9rem;
+      }
+    }
+  </style>
 </head>
 <body>
-<header>My Journal with Jesus</header>
-<div class="journal-container" id="journalContainer">
-  <!-- Entries will appear here -->
-</div>
-<a href="#" class="download-btn" id="downloadPDF">Download My Journal (PDF)</a>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script>
-const LESSON_KEY = "jesus_journal_entries";
-const journalContainer = document.getElementById('journalContainer');
+  <header>
+    <div class="nav">
+      <div class="brand">
+        <div class="brand-title">Getting to Know Jesus</div>
+        <div class="brand-subtitle">A Bible study journal for daughters</div>
+      </div>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="my journal.html" class="active">My Journal</a>
+      </nav>
+    </div>
 
-function loadEntries() {
-  journalContainer.innerHTML = '';
-  const entries = JSON.parse(localStorage.getItem(LESSON_KEY)) || [];
-  entries.sort((a,b)=> new Date(b.timestamp) - new Date(a.timestamp));
+    <div class="journal-hero">
+      <h1 class="journal-hero-title">My <span>Journal</span></h1>
+      <p class="journal-hero-text">
+        This is your quiet space with Jesus. Here you’ll find everything you’ve written
+        from each lesson, and a place to pour out your own devotions and prayers on the days
+        you just need to talk to Him.
+      </p>
+      <div class="journal-hero-meta">
+        <span>🕊️ Lesson reflections are saved automatically</span>
+        <span>✍️ Create your own devotions anytime</span>
+      </div>
+    </div>
+  </header>
 
-  entries.forEach((e, index) => {
-    const entryDiv = document.createElement('div');
-    entryDiv.className = 'entry';
+  <main>
+    <!-- Lesson Entries -->
+    <section>
+      <h2>Entries From Lessons</h2>
+      <p class="section-intro">
+        These are the notes and prayers you’ve saved while working through each study.
+        Click “View details” to revisit what you wrote with Jesus.
+      </p>
 
-    const reflectionsHtml = (e.reflectionAnswers && Array.isArray(e.reflectionAnswers) &&
-      e.reflectionAnswers.some(ans => ans && ans.trim()))
-      ? `<div class="reflection-block"><strong>Reflection Answers:</strong><br>${e.reflectionAnswers
-          .map(ans => ans && ans.trim() ? ans.trim().replace(/</g,"&lt;") : '')
-          .filter(Boolean)
-          .join('<br><br>')}</div>`
-      : '';
+      <div id="lessonEntries" class="entries-list">
+        <!-- Filled by JS -->
+      </div>
+    </section>
 
-    entryDiv.innerHTML = `
-      <h3>${e.lesson}</h3>
-      <div class="date">${e.date}</div>
-      <p><strong>Notes:</strong> <span class="notes-text">${e.notes ? e.notes.replace(/</g,"&lt;") : '<em>No notes yet</em>'}</span></p>
-      <p><strong>Prayer:</strong> <span class="prayer-text">${e.prayer ? e.prayer.replace(/</g,"&lt;") : '<em>No prayer yet</em>'}</span></p>
-      ${reflectionsHtml}
-      <button class="edit-btn">Edit</button>
-      <button class="save-btn">Save</button>
-      <button class="cancel-btn">Cancel</button>
-      <button class="delete-btn">Delete</button>
-    `;
+    <!-- Personal Devotions -->
+    <section>
+      <h2>Personal Devotions</h2>
+      <p class="section-intro">
+        Use this space for your own moments with Jesus – even when you’re not in a specific lesson.
+        Give your devotion a title, add Scripture if you’d like, and write your heart and prayer.
+      </p>
 
-    const notesSpan = entryDiv.querySelector('.notes-text');
-    const prayerSpan = entryDiv.querySelector('.prayer-text');
-    const editBtn = entryDiv.querySelector('.edit-btn');
-    const saveBtn = entryDiv.querySelector('.save-btn');
-    const cancelBtn = entryDiv.querySelector('.cancel-btn');
+      <div class="devotion-layout">
 
-    // Edit inline (notes & prayer only – reflections stay as read-only summary)
-    editBtn.addEventListener('click', () => {
-      notesSpan.contentEditable = true;
-      prayerSpan.contentEditable = true;
-      notesSpan.focus();
-      editBtn.style.display = 'none';
-      saveBtn.style.display = 'inline-block';
-      cancelBtn.style.display = 'inline-block';
-    });
+        <!-- Devotion Form -->
+        <div class="devotion-card">
+          <h3>Write a New Devotion</h3>
+          <p class="small">
+            This is just between you and Jesus. Nothing is sent anywhere – it stays safely in your browser,
+            alongside your lesson notes.
+          </p>
 
-    // Save changes
-    saveBtn.addEventListener('click', () => {
-      const entriesAll = JSON.parse(localStorage.getItem(LESSON_KEY)) || [];
-      const entry = entriesAll[index];
-      if (entry) {
-        entry.notes = notesSpan.innerText;
-        entry.prayer = prayerSpan.innerText;
-        entry.timestamp = new Date().toISOString();
-        localStorage.setItem(LESSON_KEY, JSON.stringify(entriesAll));
+          <form id="devotionForm">
+            <div class="form-group">
+              <label for="devotionTitle">Title *</label>
+              <input type="text" id="devotionTitle" required placeholder="Example: The God Who Finds Me in Samaria" />
+            </div>
+
+            <div class="form-group">
+              <label for="devotionScripture">Scripture Reference</label>
+              <input type="text" id="devotionScripture" placeholder="Example: John 4:1–30" />
+              <span class="hint">Optional – just for your own memory.</span>
+            </div>
+
+            <div class="form-group">
+              <label for="devotionNotes">My Devotion / Thoughts</label>
+              <textarea id="devotionNotes" placeholder="Write what’s on your heart, what stood out, or what you feel Jesus is saying..."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="devotionPrayer">My Prayer</label>
+              <textarea id="devotionPrayer" placeholder="Pray it out in your own words..."></textarea>
+            </div>
+
+            <div class="devotion-actions">
+              <span id="saveStatus" class="save-status"></span>
+              <button type="submit" class="save-devotion-btn">Save Devotion</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Devotions List -->
+        <div class="devotions-list-card">
+          <h3>Saved Devotions</h3>
+          <p class="small">
+            Your personal entries appear here, with the most recent at the top.
+          </p>
+
+          <div id="devotionsList" class="devotions-list">
+            <!-- Filled by JS -->
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Getting to Know Jesus • <span>A sacred space for daughters</span></p>
+  </footer>
+
+  <script>
+    // Keys used in localStorage
+    const LESSON_KEY = "jesus_journal_entries";       // same as lesson pages
+    const PERSONAL_KEY = "jesus_personal_entries";    // new key for personal devotions
+
+    // ------- LESSON ENTRIES DISPLAY (READ-ONLY) -------
+
+    const lessonContainer = document.getElementById('lessonEntries');
+
+    function loadLessonEntries() {
+      const raw = localStorage.getItem(LESSON_KEY);
+      let entries = [];
+
+      try {
+        entries = raw ? JSON.parse(raw) : [];
+      } catch (e) {
+        console.error("Could not parse lesson entries:", e);
+        entries = [];
       }
-      notesSpan.contentEditable = false;
-      prayerSpan.contentEditable = false;
-      saveBtn.style.display = 'none';
-      cancelBtn.style.display = 'none';
-      editBtn.style.display = 'inline-block';
-    });
 
-    // Cancel edits
-    cancelBtn.addEventListener('click', () => {
-      const entriesAll = JSON.parse(localStorage.getItem(LESSON_KEY)) || [];
-      const entry = entriesAll[index];
-      if (entry) {
-        notesSpan.innerText = entry.notes || '';
-        prayerSpan.innerText = entry.prayer || '';
+      // Sort by timestamp (most recent first)
+      entries.sort((a, b) => {
+        const ta = a.timestamp ? new Date(a.timestamp).getTime() : 0;
+        const tb = b.timestamp ? new Date(b.timestamp).getTime() : 0;
+        return tb - ta;
+      });
+
+      if (!entries.length) {
+        lessonContainer.innerHTML = '<div class="empty-state">No lesson entries yet. Start a lesson from the home page and anything you write there will appear here.</div>';
+        return;
       }
-      notesSpan.contentEditable = false;
-      prayerSpan.contentEditable = false;
-      saveBtn.style.display = 'none';
-      cancelBtn.style.display = 'none';
-      editBtn.style.display = 'inline-block';
-    });
 
-    // Delete entry
-    entryDiv.querySelector('.delete-btn').addEventListener('click', () => {
-      if(confirm("Are you sure you want to delete this entry?")) {
-        const entriesAll = JSON.parse(localStorage.getItem(LESSON_KEY)) || [];
-        entriesAll.splice(index,1);
-        localStorage.setItem(LESSON_KEY, JSON.stringify(entriesAll));
-        loadEntries();
-      }
-    });
+      lessonContainer.innerHTML = '';
 
-    journalContainer.appendChild(entryDiv);
-  });
-}
+      entries.forEach(entry => {
+        const card = document.createElement('article');
+        card.className = 'entry-card';
 
-loadEntries();
+        const header = document.createElement('div');
+        header.className = 'entry-header';
 
-// PDF download
-document.getElementById('downloadPDF').addEventListener('click', function(e){
-  e.preventDefault();
-  const { jsPDF } = window.jspdf;
-  const doc = new jsPDF();
-  const entries = JSON.parse(localStorage.getItem(LESSON_KEY)) || [];
-  let y = 10;
-  entries.sort((a,b)=> new Date(b.timestamp) - new Date(a.timestamp));
-  entries.forEach(e=>{
-    doc.setFontSize(14);
-    doc.text(e.lesson, 10, y);
-    y += 7;
-    doc.setFontSize(11);
-    doc.text(`Date: ${e.date}`, 10, y);
-    y += 7;
-    doc.text(`Notes: ${e.notes || 'No notes yet'}`, 10, y);
-    y += 7;
-    doc.text(`Prayer: ${e.prayer || 'No prayer yet'}`, 10, y);
-    y += 7;
-    if (e.reflectionAnswers && Array.isArray(e.reflectionAnswers) &&
-        e.reflectionAnswers.some(ans => ans && ans.trim())) {
-      doc.text('Reflection:', 10, y);
-      y += 7;
-      e.reflectionAnswers.forEach(ans => {
-        if (ans && ans.trim()) {
-          const lines = doc.splitTextToSize(ans.trim(), 180);
-          doc.text(lines, 10, y);
-          y += lines.length * 6;
+        const lessonTitle = document.createElement('div');
+        lessonTitle.className = 'entry-lesson';
+        lessonTitle.textContent = entry.lesson || 'Lesson';
+
+        const date = document.createElement('div');
+        date.className = 'entry-date';
+        date.textContent = entry.date || '';
+
+        header.appendChild(lessonTitle);
+        header.appendChild(date);
+
+        const snippet = document.createElement('div');
+        snippet.className = 'entry-snippet';
+
+        const notesText = (entry.notes || '').trim();
+        const prayerText = (entry.prayer || '').trim();
+
+        if (notesText) {
+          snippet.textContent = notesText.length > 120 ? notesText.slice(0, 120) + '…' : notesText;
+        } else if (prayerText) {
+          snippet.textContent = prayerText.length > 120 ? prayerText.slice(0, 120) + '…' : prayerText;
+        } else {
+          snippet.innerHTML = '<em>No notes yet – only reflection answers.</em>';
         }
+
+        const actions = document.createElement('div');
+        actions.className = 'entry-actions';
+
+        const toggleBtn = document.createElement('button');
+        toggleBtn.type = 'button';
+        toggleBtn.className = 'entry-toggle-btn';
+        toggleBtn.textContent = 'View details';
+
+        const details = document.createElement('div');
+        details.className = 'entry-details';
+
+        let detailsHtml = '';
+
+        if (notesText) {
+          detailsHtml += '<p><span class="entry-details-label">Notes</span><br>' + escapeHtml(notesText).replace(/\n/g, '<br>') + '</p>';
+        }
+
+        if (prayerText) {
+          detailsHtml += '<p><span class="entry-details-label">Prayer</span><br>' + escapeHtml(prayerText).replace(/\n/g, '<br>') + '</p>';
+        }
+
+        if (entry.reflectionAnswers && Array.isArray(entry.reflectionAnswers) && entry.reflectionAnswers.some(x => x && x.trim())) {
+          detailsHtml += '<p><span class="entry-details-label">Reflection Answers</span><br>';
+          detailsHtml += entry.reflectionAnswers
+            .map((ans, i) => ans && ans.trim() ? ('<strong>Q' + (i + 1) + ':</strong> ' + escapeHtml(ans).replace(/\n/g, '<br>')) : '')
+            .filter(Boolean)
+            .join('<br><br>');
+          detailsHtml += '</p>';
+        }
+
+        if (!detailsHtml) {
+          detailsHtml = '<p><em>No additional details saved yet.</em></p>';
+        }
+
+        details.innerHTML = detailsHtml;
+
+        toggleBtn.addEventListener('click', () => {
+          const isOpen = details.style.display === 'block';
+          details.style.display = isOpen ? 'none' : 'block';
+          toggleBtn.textContent = isOpen ? 'View details' : 'Hide details';
+        });
+
+        actions.appendChild(toggleBtn);
+
+        card.appendChild(header);
+        card.appendChild(snippet);
+        card.appendChild(actions);
+        card.appendChild(details);
+
+        lessonContainer.appendChild(card);
       });
     }
-    y += 10;
-    if(y>280){doc.addPage(); y=10;}
-  });
-  doc.save('My_Journal_with_Jesus.pdf');
-});
-</script>
+
+    // ------- PERSONAL DEVOTIONS (FORM + LIST) -------
+
+    const devotionForm = document.getElementById('devotionForm');
+    const devotionTitle = document.getElementById('devotionTitle');
+    const devotionScripture = document.getElementById('devotionScripture');
+    const devotionNotes = document.getElementById('devotionNotes');
+    const devotionPrayer = document.getElementById('devotionPrayer');
+    const saveStatus = document.getElementById('saveStatus');
+    const devotionsList = document.getElementById('devotionsList');
+
+    function loadPersonalDevotions() {
+      const raw = localStorage.getItem(PERSONAL_KEY);
+      let devotions = [];
+
+      try {
+        devotions = raw ? JSON.parse(raw) : [];
+      } catch (e) {
+        console.error("Could not parse personal devotions:", e);
+        devotions = [];
+      }
+
+      // Sort newest first
+      devotions.sort((a, b) => {
+        const ta = a.timestamp ? new Date(a.timestamp).getTime() : 0;
+        const tb = b.timestamp ? new Date(b.timestamp).getTime() : 0;
+        return tb - ta;
+      });
+
+      devotionsList.innerHTML = '';
+
+      if (!devotions.length) {
+        devotionsList.innerHTML = '<div class="empty-state" style="border:none;padding:0;">No personal devotions saved yet. When you save one, it will appear here.</div>';
+        return;
+      }
+
+      devotions.forEach(dev => {
+        const item = document.createElement('div');
+        item.className = 'devotion-item';
+
+        const header = document.createElement('div');
+        header.className = 'devotion-item-header';
+
+        const titleEl = document.createElement('div');
+        titleEl.className = 'devotion-title';
+        titleEl.textContent = dev.title || 'Untitled devotion';
+
+        const dateEl = document.createElement('div');
+        dateEl.className = 'devotion-date';
+        dateEl.textContent = dev.date || '';
+
+        header.appendChild(titleEl);
+        header.appendChild(dateEl);
+
+        item.appendChild(header);
+
+        if (dev.scripture && dev.scripture.trim()) {
+          const scriptureEl = document.createElement('div');
+          scriptureEl.className = 'devotion-scripture';
+          scriptureEl.textContent = dev.scripture.trim();
+          item.appendChild(scriptureEl);
+        }
+
+        const previewEl = document.createElement('div');
+        previewEl.className = 'devotion-preview';
+
+        const notesText = (dev.notes || '').trim();
+        const prayerText = (dev.prayer || '').trim();
+        const combined = (notesText + ' ' + prayerText).trim();
+
+        if (combined) {
+          previewEl.textContent = combined.length > 130 ? combined.slice(0, 130) + '…' : combined;
+        } else {
+          previewEl.innerHTML = '<em>No text saved yet.</em>';
+        }
+
+        item.appendChild(previewEl);
+        devotionsList.appendChild(item);
+      });
+    }
+
+    devotionForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const title = devotionTitle.value.trim();
+      const scripture = devotionScripture.value.trim();
+      const notes = devotionNotes.value.trim();
+      const prayer = devotionPrayer.value.trim();
+
+      if (!title) {
+        devotionTitle.focus();
+        return;
+      }
+
+      const raw = localStorage.getItem(PERSONAL_KEY);
+      let devotions = [];
+
+      try {
+        devotions = raw ? JSON.parse(raw) : [];
+      } catch (err) {
+        console.error("Could not parse existing personal devotions:", err);
+        devotions = [];
+      }
+
+      const now = new Date();
+      const entry = {
+        id: Date.now(),
+        title,
+        scripture,
+        notes,
+        prayer,
+        date: now.toLocaleDateString(),
+        timestamp: now.toISOString()
+      };
+
+      devotions.push(entry);
+      localStorage.setItem(PERSONAL_KEY, JSON.stringify(devotions));
+
+      // Clear fields
+      devotionNotes.value = '';
+      devotionPrayer.value = '';
+      devotionScripture.value = '';
+      devotionTitle.value = '';
+
+      // Feedback + refresh list
+      showSaveStatus("Saved.");
+      loadPersonalDevotions();
+    });
+
+    function showSaveStatus(message) {
+      if (!saveStatus) return;
+      saveStatus.textContent = message;
+      setTimeout(() => {
+        saveStatus.textContent = '';
+      }, 2000);
+    }
+
+    // Helper to escape HTML from user text
+    function escapeHtml(str) {
+      if (!str) return '';
+      return str
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    // Init
+    loadLessonEntries();
+    loadPersonalDevotions();
+  </script>
+
 </body>
 </html>
